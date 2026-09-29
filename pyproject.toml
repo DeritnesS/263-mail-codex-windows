@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mail263-codex"
+version = "0.1.0"
+description = "Incremental read-only 263 mail cache and local search for Codex on Windows 11"
+requires-python = ">=3.11,<3.15"
+dependencies = ["mcp>=1.12,<2", "keyring>=25,<26"]
+
+[project.scripts]
+mail263 = "mail263.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

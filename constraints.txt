@@ -1,0 +1,4 @@
+# Direct dependencies validated for this release. Transitive dependencies are
+# resolved by pip for the actual Windows/Python version; this is not a full lock.
+mcp==1.30.0
+keyring==25.7.0
