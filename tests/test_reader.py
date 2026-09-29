@@ -129,8 +129,15 @@ class ReaderTests(unittest.TestCase):
         client._simple_command = Mock(return_value=("OK", [b"done"]))
         client.untagged_responses = {"EXISTS": [b"1"]}
         client.state = "AUTH"
+        client._encoding = "ascii"
         client.select('"INBOX"', readonly=True)
-        client._simple_command.assert_called_once_with("EXAMINE", '"INBOX"')
+        client._simple_command.assert_called_once()
+        command, mailbox = client._simple_command.call_args.args
+        self.assertEqual(command, "EXAMINE")
+        # Newer imaplib versions encode/astring-quote before this boundary.
+        if isinstance(mailbox, str):
+            mailbox = mailbox.encode("ascii")
+        self.assertEqual(mailbox, b'"INBOX"')
 
     def test_uidvalidity_mismatch_never_fetches(self):
         with self.assertRaises(MailError) as caught:
