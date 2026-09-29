@@ -39,7 +39,7 @@ def credential_prompt() -> dict:
 
 def mcp_config() -> str:
     # JSON escaping is also valid for the basic TOML strings used here.
-    return "[mcp_servers.mail263]\ncommand = " + json.dumps(sys.executable, ensure_ascii=False) + '\nargs = ["-m", "mail263", "server"]\nstartup_timeout_sec = 30\ntool_timeout_sec = 600\n'
+    return "[mcp_servers.mail263]\ncommand = " + json.dumps(sys.executable, ensure_ascii=True) + '\nargs = ["-m", "mail263", "server"]\nstartup_timeout_sec = 30\ntool_timeout_sec = 600\n'
 
 
 def parser() -> argparse.ArgumentParser:
@@ -81,6 +81,10 @@ def parser() -> argparse.ArgumentParser:
 
 
 def main() -> int:
+    # Windows redirected streams can otherwise use a legacy ANSI code page.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="backslashreplace")
     args = vars(parser().parse_args())
     command = args.pop("command")
     if command == "server":

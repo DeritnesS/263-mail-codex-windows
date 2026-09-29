@@ -104,8 +104,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\scheduled-sync
 
 ## 9. 停用、升级和卸载
 
-- 暂停自动同步：用任务计划程序禁用这个任务，或运行 `scheduled-sync.ps1 -Action Remove`。
+- 暂停自动同步：用任务计划程序禁用这个任务，或在项目目录运行 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\scheduled-sync.ps1 -Action Remove`。
 - 停用 Codex 工具：在同一 Codex 主机移除/禁用 `mail263` MCP（CLI 可用 `codex mcp remove mail263`）。
-- 升级：停用同步、备份本地数据，更新代码，再运行 `01-install.cmd`；检查数据库版本和测试后恢复。项目目录移动后必须重新生成 MCP 配置和注册计划任务。
+- 升级：停用同步并停止 MCP、备份本地数据，更新代码，再运行 `01-install.cmd`；检查数据库和测试后，重启 MCP 并实际调用 status/search，确认使用新版，再恢复计划任务。只更新磁盘文件不会更新已启动的 MCP 内存代码。项目目录移动后必须重新生成 MCP 配置和注册计划任务。
 - 卸载程序不会自动删除邮箱原件或凭据。由用户确认后，删除本项目目录、`%LOCALAPPDATA%\Mail263Codex` 和凭据管理器内对应条目；不要误删其他凭据。
 - 本地缓存不是企业邮件备份系统，企业归档和财务原件保管继续遵守公司制度。

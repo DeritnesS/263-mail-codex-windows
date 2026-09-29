@@ -301,6 +301,16 @@ class ReaderTests(unittest.TestCase):
 
         asyncio.run(smoke())
 
+    def test_cli_json_is_utf8_even_with_legacy_redirected_encoding(self):
+        import os
+        import subprocess
+        import sys
+        env = dict(os.environ, PYTHONIOENCODING="ascii", LOCALAPPDATA=self.tmp.name,
+                   PYTHONPATH=str(Path(__file__).resolve().parents[1] / "src"))
+        result = subprocess.run([sys.executable, "-m", "mail263", "status"],
+                                env=env, capture_output=True, check=True)
+        self.assertTrue(json.loads(result.stdout.decode("utf-8"))["ok"])
+
 
 if __name__ == "__main__":
     unittest.main()

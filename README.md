@@ -1,5 +1,7 @@
 # 263 企业邮箱 × Codex：Windows 11 上手项目
 
+[![Offline checks](https://github.com/DeritnesS/263-mail-codex-windows/actions/workflows/tests.yml/badge.svg)](https://github.com/DeritnesS/263-mail-codex-windows/actions/workflows/tests.yml)
+
 让 Codex 快速查找 263 企业邮箱中的发票、对账单、付款通知及往来记录。面向 Windows 11 和不熟悉电脑操作的会计同事。**默认方案：本地邮件索引 + 只读增量同步，不部署知识蒸馏。**
 
 **给同事的 Codex：先读 [AGENTS.md](AGENTS.md)，再读 [部署指令](docs/CODEX_HANDOFF.md)。先交付本地快速检索和及时同步，不要先搭大型知识库。**
